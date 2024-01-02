@@ -24,4 +24,22 @@ You will need a LAMP stack. In this process, we use Apache, MariaDB and php 8.2
 
 An admin user is created, so you can login with : Mail : `admin@system.localhost` / Password : `d4d5ehdpdepd81 `
 
-Don't forget to change the password !
+⚠️ Don't forget to change the password after the first login !
+
+Create the Cron Task (for generating the thumbnails, sending notifications)
+- `crontab -e -u www-data`
+- add `*/5  *  *  *  * php /path/artisan queue:work --stop-when-empty`
+
+- Create the Apache2 site file :
+
+<VirtualHost *:80>
+    DocumentRoot /path/public
+    ServerName blog.paulhenry.eu
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    <Directory /path/public>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
