@@ -31,15 +31,18 @@ Create the Cron Task (for generating the thumbnails, sending notifications)
 - add `*/5  *  *  *  * php /path/artisan queue:work --stop-when-empty`
 
 - Create the Apache2 site file :
-
+```
 <VirtualHost *:80>
-    DocumentRoot /path/public
+    DocumentRoot /path/to/public_folder
     ServerName blog.paulhenry.eu
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
-    <Directory /path/public>
+    <Directory /path/to/public_folder>
         Options Indexes FollowSymLinks
         AllowOverride All
         Require all granted
     </Directory>
 </VirtualHost>
+```
+
+- Optionaly, you can use Firebase to send push notifications to the users
